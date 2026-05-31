@@ -36,7 +36,12 @@ export default function App() {
   const [settings, setSettings] = useState<any>(defaultSettings);
 
   useEffect(() => {
-    const isAdmin = window.location.pathname === '/admin';
+    const p = window.location.pathname;
+    const h = window.location.hash;
+    const s = window.location.search;
+    
+    // Support multiple ways to access admin for preview and production
+    const isAdmin = p.startsWith('/management-amina') || h.includes('management-amina') || s.includes('admin=true');
     setIsAdminRoute(isAdmin);
 
     if (!isAdmin) {

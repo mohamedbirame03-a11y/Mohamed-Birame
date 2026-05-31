@@ -88,8 +88,8 @@ export function AdminDashboard() {
           <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
             <Users className="w-8 h-8 text-white/70" />
           </div>
-          <h1 className="text-2xl font-display font-medium mb-2">لوحة تحكم الإدارة</h1>
-          <p className="text-white/50 text-sm mb-8">يرجى تسجيل الدخول بحساب الإدارة للوصول إلى بيانات المسجلين</p>
+          <h1 className="text-2xl font-display font-medium mb-2">لوحة تحكم المديرة</h1>
+          <p className="text-white/50 text-sm mb-8">يرجى تسجيل الدخول بحساب المديرة للوصول إلى بيانات المسجلين</p>
           <button onClick={login} className="w-full flex items-center justify-center gap-3 bg-white text-brand-950 px-6 py-4 rounded-xl font-medium transition-transform active:scale-95">
             <LogIn className="w-5 h-5" /> الدخول باستخدام Google
           </button>
@@ -106,7 +106,7 @@ export function AdminDashboard() {
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8 border-b border-white/10 pb-6">
           <h1 className="text-2xl md:text-3xl font-display font-medium flex items-center gap-3">
             <Settings className="w-7 h-7 text-white/50" />
-            إدارة المنصة (EDUXMINA)
+            لوحة تحكم المديرة (EDUXMINA)
           </h1>
           <div className="flex items-center gap-4">
             <span className="text-white/50 text-sm hidden sm:block" dir="ltr">{user.email}</span>

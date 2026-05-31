@@ -37,10 +37,10 @@ export function About() {
             transition={{ duration: 0.6 }}
             className="flex flex-col"
           >
-            <h2 className="text-sm font-semibold tracking-widest text-white/50 uppercase mb-4">About Me / نبذة عني</h2>
+            <h2 className="text-sm font-semibold tracking-widest text-white/50 uppercase mb-4">About the Director / نبذة عن المديرة</h2>
             <h3 className="text-4xl md:text-5xl font-display font-medium text-white leading-tight mb-6">
-              Meet Your English Teacher
-              <span className="block mt-4 text-2xl md:text-3xl text-white/90 font-sans tracking-wide" dir="rtl">تعرّف على أستاذتك للغة الإنجليزية</span>
+              Meet the Director
+              <span className="block mt-4 text-2xl md:text-3xl text-white/90 font-sans tracking-wide" dir="rtl">تعرّف على مديرة الأكاديمية</span>
             </h3>
             <div className="space-y-4 mb-8">
               <p className="text-lg text-white/70 leading-relaxed">
@@ -75,14 +75,14 @@ export function About() {
               <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-900 border border-white/10 relative mt-12 md:mt-24 shadow-2xl">
                 <img 
                   src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=1000&auto=format&fit=crop" 
-                  alt="English Teacher Photo 1" 
+                  alt="Director Photo 1" 
                   className="object-cover w-full h-full opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
                 />
               </div>
               <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-900 border border-white/10 relative shadow-2xl">
                 <img 
                   src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop" 
-                  alt="English Teacher Photo 2" 
+                  alt="Director Photo 2" 
                   className="object-cover w-full h-full opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
                 />
               </div>
@@ -106,7 +106,7 @@ export function About() {
                   </div>
                   <div>
                     <div className="font-medium text-white text-sm">Miss Amina</div>
-                    <div className="text-xs text-white/50">English Teacher • Laghouat, Algeria</div>
+                    <div className="text-xs text-white/50">Director • Laghouat, Algeria</div>
                   </div>
                 </div>
                 <div className="text-right hidden sm:block">
