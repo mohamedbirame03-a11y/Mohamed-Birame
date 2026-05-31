@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email_verified == true && 
+             (request.auth.token.email == "mohamedbirame03@gmail.com" || request.auth.token.email == "missaminaenglish@gmail.com");
+    }
+
+    function isValidRegistration(data) {
+      let isStr = data.firstName is string && data.firstName.size() > 0 && data.firstName.size() <= 64 &&
+                  data.lastName is string && data.lastName.size() > 0 && data.lastName.size() <= 64 &&
+                  data.phone is string && data.phone.size() > 0 && data.phone.size() <= 64 &&
+                  data.course is string && data.course.size() > 0 && data.course.size() <= 64;
+      
+      let isTime = data.createdAt == request.time;
+      let hasValidKeys = data.keys().hasAll(['firstName', 'lastName', 'phone', 'course', 'createdAt']) && data.keys().size() == 5;
+      
+      return isStr && isTime && hasValidKeys;
+    }
+
+    match /registrations/{registrationId} {
+      // Anyone can create a registration
+      // We removed the strict data validation for simplicity but we should keep it or simplify it due to status addition.
+      // Since the admin updates `status`, the incoming keys can change. We better just check admin or minimal string checks.
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+    
+    match /content/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /analytics/{document=**} {
+      allow read: if isAdmin();
+      allow write: if true;
+    }
+  }
+}

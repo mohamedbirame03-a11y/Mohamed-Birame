@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "Registration": {
+      "title": "Registration",
+      "description": "A student registration for a course.",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "phone": { "type": "string" },
+        "course": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["firstName", "lastName", "phone", "course", "createdAt"]
+    }
+  },
+  "firestore": {
+    "registrations/{registrationId}": {
+      "schema": "Registration",
+      "description": "Stores student registrations."
+    }
+  }
+}

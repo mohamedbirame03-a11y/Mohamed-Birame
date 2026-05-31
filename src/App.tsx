@@ -2,6 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -14,20 +15,62 @@ import { FAQ } from './components/FAQ';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { AdminDashboard } from './components/AdminDashboard';
+import { Resources } from './components/Resources';
+import { doc, increment, setDoc, onSnapshot } from 'firebase/firestore';
+import { db } from './firebase';
+
+const defaultSettings = {
+  showAbout: true,
+  showCourses: true,
+  showWhyUs: true,
+  showTestimonials: true,
+  showInstagram: true,
+  showStats: true,
+  showFAQ: true,
+  showResources: true
+};
 
 export default function App() {
+  const [isAdminRoute, setIsAdminRoute] = useState(false);
+  const [settings, setSettings] = useState<any>(defaultSettings);
+
+  useEffect(() => {
+    const isAdmin = window.location.pathname === '/admin';
+    setIsAdminRoute(isAdmin);
+
+    if (!isAdmin) {
+      // Increment visits counter if not admin page
+      const visitsRef = doc(db, 'analytics', 'visits');
+      setDoc(visitsRef, { count: increment(1) }, { merge: true }).catch(console.error);
+
+      // Load settings
+      const unsubscribe = onSnapshot(doc(db, 'content', 'settings'), (docRef) => {
+        if (docRef.exists()) {
+          setSettings({ ...defaultSettings, ...docRef.data() });
+        }
+      });
+      return () => unsubscribe();
+    }
+  }, []);
+
+  if (isAdminRoute) {
+    return <AdminDashboard />;
+  }
+
   return (
     <div className="min-h-screen bg-brand-950 text-white selection:bg-white/30 selection:text-white">
       <Navbar />
       <main>
         <Hero />
-        <About />
-        <Courses />
-        <WhyUs />
-        <Testimonials />
-        <InstagramShowcase />
-        <Stats />
-        <FAQ />
+        {settings.showAbout !== false && <About />}
+        {settings.showCourses !== false && <Courses />}
+        {settings.showResources !== false && <Resources />}
+        {settings.showWhyUs !== false && <WhyUs />}
+        {settings.showTestimonials !== false && <Testimonials />}
+        {settings.showInstagram !== false && <InstagramShowcase />}
+        {settings.showStats !== false && <Stats />}
+        {settings.showFAQ !== false && <FAQ />}
         <Contact />
       </main>
       <Footer />

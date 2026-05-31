@@ -71,27 +71,47 @@ export function About() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-900 border border-white/10 relative">
-              <img 
-                src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=2670&auto=format&fit=crop" 
-                alt="English Teacher" 
-                className="object-cover w-full h-full opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-transparent to-transparent" />
-              
-              <div className="absolute bottom-8 left-8 right-8 glass-panel rounded-2xl p-6">
-                <blockquote className="text-lg font-medium text-white mb-4">
-                  "My vision is to see Algerian youth speaking English fluently and confidently anywhere in the world."
-                  <span className="block mt-4 text-base text-white/80 font-normal font-sans tracking-wide leading-relaxed" dir="rtl">
-                    "رؤيتي هي أن أرى الشباب الجزائري يتحدث الإنجليزية بطلاقة وثقة في أي مكان في العالم."
-                  </span>
-                </blockquote>
+            <div className="grid grid-cols-2 gap-4 md:gap-6 relative z-10">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-900 border border-white/10 relative mt-12 md:mt-24 shadow-2xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=1000&auto=format&fit=crop" 
+                  alt="English Teacher Photo 1" 
+                  className="object-cover w-full h-full opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+                />
+              </div>
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-900 border border-white/10 relative shadow-2xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1000&auto=format&fit=crop" 
+                  alt="English Teacher Photo 2" 
+                  className="object-cover w-full h-full opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700"
+                />
+              </div>
+            </div>
+            
+            {/* Background blur effect */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-brand-500/20 blur-[100px] z-0 rounded-full mix-blend-screen pointer-events-none" />
+
+            <div className="absolute -bottom-6 md:-bottom-12 sm:left-4 sm:right-4 z-20 glass-panel rounded-2xl p-6 border border-white/10 shadow-2xl">
+              <blockquote className="text-sm md:text-base font-medium text-white mb-4">
+                "Inspiring a passion for learning that endures. Grateful & boundless."
+                <span className="block mt-3 text-sm md:text-base text-white/80 font-normal font-sans tracking-wide leading-relaxed" dir="rtl">
+                  "إلهام شغف التعلم الذي يدوم. ممتنة وبلا حدود."
+                </span>
+              </blockquote>
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/20" />
-                  <div>
-                    <div className="font-medium text-white text-sm">Instructor Mina</div>
-                    <div className="text-xs text-white/50">Founder, EDUXMINA</div>
+                  <div className="w-10 h-10 rounded-full bg-white/20 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-brand-500/20 mix-blend-overlay"></div>
+                    <img src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?q=80&w=200&auto=format&fit=crop" alt="Miss Amina" className="w-full h-full object-cover" />
                   </div>
+                  <div>
+                    <div className="font-medium text-white text-sm">Miss Amina</div>
+                    <div className="text-xs text-white/50">English Teacher • Laghouat, Algeria</div>
+                  </div>
+                </div>
+                <div className="text-right hidden sm:block">
+                  <div className="text-xs text-white/50">Instagram</div>
+                  <a href="https://www.instagram.com/eduxmina/" target="_blank" rel="noreferrer" className="text-sm font-medium text-white hover:text-brand-300 transition-colors">@eduxmina</a>
                 </div>
               </div>
             </div>
