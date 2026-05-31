@@ -1,0 +1,6 @@
+{
+  "name": "EDUXMINA English Academy",
+  "description": "A premium modern website for an English language academy targeting Algerian students. Features dark luxury theme, smooth animations, and comprehensive course offerings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
