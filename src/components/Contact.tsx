@@ -11,12 +11,12 @@ export function Contact() {
     phone: '',
     course: ''
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'validation_error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.phone || !formData.course) {
-      alert("Please fill all the fields before submitting.");
+      setStatus('validation_error');
       return;
     }
 
@@ -28,11 +28,17 @@ export function Contact() {
     
     setStatus('submitting');
     try {
-      await addDoc(collection(db, 'registrations'), {
+      const addDocPromise = addDoc(collection(db, 'registrations'), {
         ...formData,
         phone: formattedPhone,
         createdAt: serverTimestamp()
       });
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Timeout connecting to database')), 8000)
+      );
+      
+      await Promise.race([addDocPromise, timeoutPromise]);
+      
       setStatus('success');
       setFormData({ firstName: '', lastName: '', phone: '', course: '' });
     } catch (error) {
@@ -109,7 +115,6 @@ export function Contact() {
                     onChange={(e) => setFormData({...formData, firstName: e.target.value})}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
                     placeholder="John"
-                    required
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -120,7 +125,6 @@ export function Contact() {
                     onChange={(e) => setFormData({...formData, lastName: e.target.value})}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
                     placeholder="Doe"
-                    required
                   />
                 </div>
               </div>
@@ -135,7 +139,6 @@ export function Contact() {
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     className="w-full bg-transparent px-4 py-3 text-white focus:outline-none"
                     placeholder="55 12 34 56"
-                    required
                   />
                 </div>
               </div>
@@ -146,7 +149,6 @@ export function Contact() {
                   value={formData.course}
                   onChange={(e) => setFormData({...formData, course: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
-                  required
                 >
                   <option value="" className="bg-brand-900 text-white/50">Select a course...</option>
                   <option value="beginner" className="bg-brand-900">Beginner English</option>
@@ -157,7 +159,10 @@ export function Contact() {
               </div>
 
               {status === 'error' && (
-                <div className="text-red-400 text-sm">Failed to submit registration. Please try again.</div>
+                <div className="text-red-400 text-sm p-3 bg-red-400/10 rounded-lg">Failed to submit registration. Please try again.</div>
+              )}
+              {status === 'validation_error' && (
+                <div className="text-red-400 text-sm p-3 bg-red-400/10 rounded-lg">يرجى ملء جميع الحقول المطلوبة قبل الإرسال.</div>
               )}
 
               <button 
